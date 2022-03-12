@@ -4,7 +4,7 @@
     //For parse sdk
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <!-- Paste BOTH strings as required: they are specific to each person -->
-    <string name="back4app_app_id">8qN3Q2Om65lhnZRQR9wHDj38J0gPYRLgo0r9sX3v</string>
-    <string name="back4app_client_key">q1SKdxZ5CF3Ub5HayTs9yEmAzn76TXOFR7HXREBb</string>
+    <string name="back4app_app_id">eqPFVMtz9OXgp04Nnowb53OV8hmADuk5LPy40SVn</string>
+    <string name="back4app_client_key">dIgBhQm6PqV6sEprXd4RekPmvXCP6eu7tKmqcB31</string>
 
 </resources>
