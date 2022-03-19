@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.parstagram.MainActivity
 import com.example.parstagram.Post
 import com.example.parstagram.PostAdapter
@@ -26,6 +28,9 @@ open class FeedFragment : Fragment() {
     //For step 4
     var allPosts: MutableList<Post> = mutableListOf()
 
+    //Creating variable for swipe to refresh layout
+    lateinit var swipeContainer: SwipeRefreshLayout
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +46,19 @@ open class FeedFragment : Fragment() {
         //we dont need to define what type of view we are looking for because we already defined
         //the postsRecyclerView's type.
         postsRecyclerView= view.findViewById(R.id.postRecyclerView)
+
+        //for swipe to refresh
+        swipeContainer = view.findViewById(R.id.swipeContainer)
+        swipeContainer.setOnRefreshListener {
+            Toast.makeText(requireContext(), "Refreshing", Toast.LENGTH_SHORT).show()
+            queryPosts()
+        }
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light)
 
         //Steps to populate RecyclerView
         //1. Create layout for each row in list (item_post.xml created)
@@ -74,6 +92,8 @@ open class FeedFragment : Fragment() {
                     Log.e(MainActivity.TAG, "Error fetching posts")
                 }else{
                     if(posts != null){
+                        //Clear out current list of things
+                        adapter.clear()
                         for ( post in posts){
                             Log.i(TAG, "Post: "+ post.getDescription() + " , username: " +
                                     post.getUser()?.username)
@@ -82,8 +102,8 @@ open class FeedFragment : Fragment() {
                         allPosts.addAll(posts)
                         adapter.notifyDataSetChanged()
 
-                        //For Swipe to refresh
-                        //swipeContainer = findViewById(R.id.swipeContainer)
+                        //For Swipe to refresh: stopping refreshing icon
+                        swipeContainer.setRefreshing(false)
 
                     }
                 }
