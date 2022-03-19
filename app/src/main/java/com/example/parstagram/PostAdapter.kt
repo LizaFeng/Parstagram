@@ -13,7 +13,21 @@ import com.bumptech.glide.Glide
 ///When we are creating an adapter, we need 2 things
 //1. context
 //2. list of posts
-class PostAdapter(val context: Context, val posts: List<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(val context: Context, val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+
+    //For pull to refresh (changed the list to mutableList
+    // Clean all elements of the recycler
+    fun clear() {
+        posts.clear()
+        notifyDataSetChanged()
+    }
+    //For pull to refresh
+    // Add a list of items -- change to type used
+    fun addAll(posts2: List<Post>) {
+        posts.addAll(posts2)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
         //Specify the layout file to use for this item
 
@@ -54,4 +68,5 @@ class PostAdapter(val context: Context, val posts: List<Post>) : RecyclerView.Ad
 
         }
     }
+
 }

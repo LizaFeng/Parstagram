@@ -81,6 +81,10 @@ open class FeedFragment : Fragment() {
                         //Added after setting up the adapter
                         allPosts.addAll(posts)
                         adapter.notifyDataSetChanged()
+
+                        //For Swipe to refresh
+                        //swipeContainer = findViewById(R.id.swipeContainer)
+
                     }
                 }
             }
